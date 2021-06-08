@@ -10,6 +10,11 @@ class DishDetail extends Component{
 
     render(){
 
+        if(this.props.dishess==null){
+            return(
+                <div></div>
+            );
+        }
         const comments = this.props.dishess.comments.map((x) => {
             return (
                 <div key={x.id}>
