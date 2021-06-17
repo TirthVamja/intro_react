@@ -2,9 +2,9 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function RenderLeader({leader}){
 
-    return(
+function RenderLeader({ leader }) {
+    return (
         <Media className="mt-3 mb-5">
             <Media left className="col-2">
                 <Media object src={leader.image} alt={leader.name} />
@@ -26,7 +26,7 @@ function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-            <div><RenderLeader leader={leader} ></RenderLeader></div>
+            <RenderLeader leader={leader}/>
         );
     });
 
@@ -94,4 +94,4 @@ function About(props) {
     );
 }
 
-export default About;  
+export default About;    
