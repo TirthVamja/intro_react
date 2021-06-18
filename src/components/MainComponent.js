@@ -6,6 +6,7 @@ import Footer from './FooterComponent';
 import Header from './HeaderComponent';
 import Home from './HomeComponent';
 import About from './AboutComponent';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
@@ -76,16 +77,20 @@ class Main extends Component {
     return (
       <div>
         <Header />
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
         
-        <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
-          <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders} /> }/>
-          <Route path="/menu/:dishId" component={DishWithId}/>
-          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-          {/* <Route exact path="/contactus" component={Contact} /> */}
-          <Redirect to="/home" />
-        </Switch>
+            <Switch>
+              <Route path="/home" component={HomePage} />
+              <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
+              <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders} /> }/>
+              <Route path="/menu/:dishId" component={DishWithId}/>
+              <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+              {/* <Route exact path="/contactus" component={Contact} /> */}
+              <Redirect to="/home" />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
 
 
         {/* <Menu dishes={this.props.dishes} onClick={(dishId) =>this.onDishSelect(dishId)}/>
