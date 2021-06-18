@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link } from "react-router-dom";
 import { Loading } from './LoadingComponent';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { baseUrl } from '../shared/baseUrl';
 
 const required = val => val && val.length;
@@ -118,30 +119,40 @@ class CommentForm extends Component{
 
 function RenderDish({ dish }) {
     return (
-         <div className="col-12 col-md-5 m-1">
+        <div className="col-12 col-md-5 m-1">
+          <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>  
             <Card>
             <CardImg top src={baseUrl + dish.image} alt={dish.name} />
             <CardTitle className="ml-3 mt-2">{dish.name}</CardTitle>
                 <CardText className="ml-3">{dish.description}</CardText>
             </Card>
+          </FadeTransform>
         </div>
     );
 }
 
 function RenderComments({ comments,postComment,dishId }) {
     const comment = comments.map((cmt) => {
+      // <Stagger in>  
         return (
             <div key={cmt.id}>
+              <Fade in>
                 <div className="col-12 col-md-12 mb-3">{cmt.comment}</div>
                 <div className="col-12 col-md-12 mb-3">-- {cmt.author} , {format(new Date(cmt.date), 'MMM dd, yyyy')}</div>
+                </Fade>
             </div>
         );
+      // </Stagger>
     });
     return (
         <div className="m-1 col-12 col-md-5">
-            <h4>Comments</h4>
-            {comment}
-        <CommentForm dishId={dishId} postComment={postComment}/>
+          <h4>Comments</h4>
+          {comment}
+          <CommentForm dishId={dishId} postComment={postComment}/>
         </div>
     );
 }
